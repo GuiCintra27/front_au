@@ -14,7 +14,7 @@ export const whiteTheme = {
       main: "#CE0000",
     },
     text: {
-      primary: "#707070",
+      primary: "#121212",
       secondary: "#9F9F9F",
       white: "#fff",
     },
