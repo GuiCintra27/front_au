@@ -1,3 +1,5 @@
+"use client";
+
 import { ThemeProvider as ThemeProviderStyled } from "styled-components";
 
 import { whiteTheme } from "./white-theme";

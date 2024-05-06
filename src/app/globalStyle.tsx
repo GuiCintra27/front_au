@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
   
   html,
   body {
-    font-family: var(--work-sans);
+    font-family: var(--poppins);
     max-width: 100vw;
     overflow-x: hidden;
     font-size: 62.5%;
