@@ -8,7 +8,7 @@ import StyledComponentsRegistry from "@/lib/styledComponentsRegistry";
 const inter = Inter({ subsets: ["latin"], variable: "--inter" });
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["300", "400", "700"],
+  weight: ["300", "400", "600", "700"],
   variable: "--poppins",
 });
 
