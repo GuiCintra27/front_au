@@ -10,3 +10,5 @@ export async function fetchUrl(url: string, options?: RequestInit) {
 
   return response.json();
 }
+
+export const revalidate = 1000 * 60 * 60 * 24;

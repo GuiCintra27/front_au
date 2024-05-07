@@ -2,14 +2,16 @@ import { Header } from "@/components/common/header";
 import { Categories, Menu } from "@/models/menuModel";
 import { Typograph } from "@/components/common/typograph";
 import { CategoryCard } from "@/components/common/categories/card";
-import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
+import { fetchUrl, revalidate } from "@/components/infra/fetch-logic/fetchUrl";
 
 export default async function Menu({
   searchParams,
 }: {
   searchParams: { search: string };
 }) {
-  const { categories }: Menu = await fetchUrl("/menu");
+  const { categories }: Menu = await fetchUrl("/menu", {
+    next: { revalidate, tags: ["menu"] },
+  });
   return (
     <>
       <Header />
