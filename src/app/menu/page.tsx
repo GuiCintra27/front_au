@@ -1,25 +1,15 @@
-import { CategoryCard } from "@/components/common/categories/card";
 import { Header } from "@/components/common/header";
+import { Categories, Menu } from "@/models/menuModel";
 import { Typograph } from "@/components/common/typograph";
+import { CategoryCard } from "@/components/common/categories/card";
+import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
 
-export default function Menu({
+export default async function Menu({
   searchParams,
 }: {
   searchParams: { search: string };
 }) {
-  const items = [
-    {
-      imageUrl: "https://content.jwplatform.com/thumbs/GgO0D6jO-720.jpg",
-      name: "Combo",
-      category_id: 1,
-    },
-    {
-      imageUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1Kyl6CpoFh_HQm7-3no5sDiQ0mRGLzlU0GGc60U8Z_JAobBGW2KHI8jTedOkWnjqGumA&usqp=CAU",
-      name: "Açaí",
-      category_id: 2,
-    },
-  ];
+  const { categories }: Menu = await fetchUrl("/menu");
   return (
     <>
       <Header />
@@ -37,14 +27,16 @@ export default function Menu({
             flexWrap: "wrap",
           }}
         >
-          {items.map(({ key, imageUrl, name, category_id }: any) => (
-            <CategoryCard
-              imageUrl={imageUrl}
-              name={name}
-              categoryId={category_id}
-              key={key}
-            />
-          ))}
+          {categories.map(
+            ({ image_url: imageUrl, name, id }: Categories, key) => (
+              <CategoryCard
+                imageUrl={imageUrl}
+                name={name}
+                categoryId={id}
+                key={key}
+              />
+            )
+          )}
         </div>
       </main>
     </>
