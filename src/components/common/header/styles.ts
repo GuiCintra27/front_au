@@ -20,6 +20,7 @@ export const Container = styled.div`
   }
 
   div {
+    width: fit-content;
     display: flex;
     align-items: center;
     gap: 1.6rem;
