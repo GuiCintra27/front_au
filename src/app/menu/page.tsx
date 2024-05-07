@@ -33,7 +33,7 @@ export default function Menu({
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            gap: "2rem",
             flexWrap: "wrap",
           }}
         >

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { CardAction } from "../../cardAction";
 import { Container } from "./styles";
 
 export async function CategoryCard({
