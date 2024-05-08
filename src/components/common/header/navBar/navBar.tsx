@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
 import { Container } from "./styles";
 
 export function NavBar() {
@@ -11,7 +13,11 @@ export function NavBar() {
     Retirada: "",
   };
 
-  const actualPage = window.location.pathname;
+  const [actualPage, setActualPage] = useState<string | null>(null);
+
+  useEffect(() => {
+    setActualPage(window.location.pathname);
+  }, []);
 
   function alert() {
     window.alert("Recurso em desenvolvimento");
