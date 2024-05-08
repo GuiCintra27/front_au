@@ -7,10 +7,6 @@ export default async function Menu() {
     next: { revalidate, tags: ["menu"] },
   });
 
-  if (1 + 1 === 2) {
-    throw new Error("Error");
-  }
-
   return (
     <div
       style={{

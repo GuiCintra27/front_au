@@ -12,4 +12,4 @@ export async function fetchUrl<T>(
   return await response.json();
 }
 
-export const revalidate = 1000 * 60 * 60 * 24; // 24 hours
+export const revalidate = 1000 * 60; // 1 hour
