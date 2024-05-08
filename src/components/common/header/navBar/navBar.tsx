@@ -13,10 +13,14 @@ export function NavBar() {
     Retirada: "",
   };
 
-  const [actualPage, setActualPage] = useState<string | null>(null);
+  const [actualPage, setActualPage] = useState<string>("");
 
   useEffect(() => {
-    setActualPage(window.location.pathname);
+    let page = window.location.pathname;
+
+    if (page.includes("categories")) page = "/menu";
+
+    setActualPage(page);
   }, []);
 
   function alert() {
@@ -30,14 +34,14 @@ export function NavBar() {
           <div
             key={index}
             onClick={alert}
-            className={actualPage === pages[page] ? "active" : ""}
+            className={pages[page].includes(actualPage) ? "active" : ""}
           >
             {page}
           </div>
         ) : (
           <div
             key={index}
-            className={actualPage === pages[page] ? "active" : ""}
+            className={pages[page].includes(actualPage) ? "active" : ""}
           >
             {/* @ts-expect-error */}
             <Link href={pages[page]}>{page}</Link>
