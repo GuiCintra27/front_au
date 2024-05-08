@@ -15,6 +15,7 @@ export const Container = styled.div<{ $image_url: string }>`
   font-size: 2.5rem;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.text.white};
+  word-break: break-word;
 
   border-radius: 1rem;
   box-shadow: rgba(0, 0, 0, 0.6) 0px -120px 50px -60px inset;

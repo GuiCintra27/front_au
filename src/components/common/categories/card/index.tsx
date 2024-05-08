@@ -12,7 +12,7 @@ export async function CategoryCard({
 }) {
   return (
     <Container $image_url={imageUrl}>
-      <Link href={`/categories?categoryId=${categoryId}`}>
+      <Link href={`/categories?id=${categoryId}&name=${name}`}>
         <p>{name}</p>
       </Link>
     </Container>

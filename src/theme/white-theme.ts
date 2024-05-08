@@ -6,6 +6,9 @@ export const whiteTheme = {
       dark: "#805C4D",
       light: "#C08D77",
     },
+    stroke: {
+      main: "#E8E8EA",
+    },
     disabled: "#9F9F9F",
     grey: {
       main: "#F4F4F4",

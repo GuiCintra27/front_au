@@ -9,6 +9,9 @@ declare module "styled-components" {
         dark: string;
         light: string;
       };
+      stroke: {
+        main: string;
+      };
       disabled: string;
       grey: {
         main: string;
