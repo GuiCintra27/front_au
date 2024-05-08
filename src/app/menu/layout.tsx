@@ -3,13 +3,19 @@ import { Suspense } from "react";
 import { Header } from "@/components/common/header";
 import { Typograph } from "@/components/common/typograph";
 import { SkeletonLoading } from "@/components/common/loading";
-import { categoriesLoadingSizes as loadingSizes } from "@/utils/loadingSizesUtil";
 
 export default async function MenuLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const loadingSizes = {
+    $width: "30rem",
+    $height: "19rem",
+    $border_radius: "1rem",
+    $margin_bottom: "2rem",
+  };
+
   return (
     <>
       <Header />
@@ -28,7 +34,7 @@ export default async function MenuLayout({
           }}
         >
           <Suspense
-            fallback={loadingSizes.map((data, index) => (
+            fallback={new Array(8).fill(loadingSizes).map((data, index) => (
               <SkeletonLoading
                 key={index}
                 {...data}
