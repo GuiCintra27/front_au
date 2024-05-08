@@ -2,11 +2,12 @@
 
 import styled from "styled-components";
 
-export function SectionDescription({
-  children,
-}: {
+interface SectionDescriptionProps
+  extends React.HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode;
-}) {
+}
+
+export function SectionDescription({ children }: SectionDescriptionProps) {
   return <Container>{children}</Container>;
 }
 

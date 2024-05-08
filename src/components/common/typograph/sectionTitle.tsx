@@ -2,7 +2,11 @@
 
 import styled from "styled-components";
 
-export function SectionTitle({ children }: { children: React.ReactNode }) {
+interface SectionTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
+  children: React.ReactNode;
+}
+
+export function SectionTitle({ children }: SectionTitleProps) {
   return <Container>{children}</Container>;
 }
 

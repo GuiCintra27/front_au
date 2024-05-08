@@ -2,7 +2,11 @@
 
 import styled from "styled-components";
 
-export function Title({ children }: { children: React.ReactNode }) {
+interface TitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
+  children: React.ReactNode;
+}
+
+export function Title({ children }: TitleProps) {
   return <Container>{children}</Container>;
 }
 
