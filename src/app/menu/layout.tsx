@@ -2,6 +2,8 @@ import { Suspense } from "react";
 
 import { Header } from "@/components/common/header";
 import { Typograph } from "@/components/common/typograph";
+import { SkeletonLoading } from "@/components/common/loading";
+import { categoriesLoadingSizes as loadingSizes } from "@/utils/loadingSizesUtil";
 
 export default async function MenuLayout({
   children,
@@ -25,7 +27,19 @@ export default async function MenuLayout({
             flexWrap: "wrap",
           }}
         >
-          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+          <Suspense
+            fallback={loadingSizes.map((data, index) => (
+              <SkeletonLoading
+                key={index}
+                {...data}
+                style={{
+                  marginBottom: data.$margin_bottom,
+                }}
+              />
+            ))}
+          >
+            {children}
+          </Suspense>
         </div>
       </main>
     </>
