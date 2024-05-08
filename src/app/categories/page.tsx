@@ -16,12 +16,12 @@ async function Categories({
     <>
       <Typograph.Title>{name}</Typograph.Title>
       <Typograph.SectionDescription>
-        Veja os item no cardápio de {name}
+        Veja os item no cardápio de {name.toLowerCase()}
       </Typograph.SectionDescription>
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
+          gap: "10rem",
           flexWrap: "wrap",
           fontSize: "2rem",
         }}
