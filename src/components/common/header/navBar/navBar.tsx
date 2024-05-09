@@ -8,7 +8,7 @@ import { Container } from "./styles";
 export function NavBar() {
   const pages = {
     Cardápio: "/menu",
-    Cozinha: "/kitchen",
+    Cozinha: "/kitchen/categories",
     Pedidos: "",
     Retirada: "",
   };
@@ -18,7 +18,7 @@ export function NavBar() {
   useEffect(() => {
     let page = window.location.pathname;
 
-    if (page.includes("categories")) page = "/menu";
+    if (page === "/categories") page = "/menu";
 
     setActualPage(page);
   }, []);
