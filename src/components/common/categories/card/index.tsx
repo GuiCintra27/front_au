@@ -8,7 +8,7 @@ export async function CategoryCard({
 }: {
   imageUrl: string;
   name: string;
-  categoryId: number;
+  categoryId: string;
 }) {
   return (
     <Container $image_url={imageUrl}>

@@ -4,14 +4,14 @@ export interface Menu {
 }
 
 export interface Categories {
-  id: number;
+  id: string;
   name: string;
   image_url: string;
   day_shift: DayShift;
 }
 
 export interface ProductData {
-  id: number;
+  id: string;
   name: string;
   description: string;
   price: number;

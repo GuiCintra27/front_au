@@ -1,20 +1,27 @@
-import { Suspense } from "react";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
 
+import { Menu } from "@/models/menuModel";
 import { Header } from "@/components/common/header";
 import { Typograph } from "@/components/common/typograph";
-import { SkeletonLoading } from "@/components/common/loading";
+import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
 
 export default async function MenuLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const loadingSizes = {
-    $width: "30rem",
-    $height: "19rem",
-    $border_radius: "1rem",
-    $margin_bottom: "2rem",
-  };
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      return await fetchUrl<Menu>("/menu");
+    },
+  });
 
   return (
     <>
@@ -33,19 +40,9 @@ export default async function MenuLayout({
             flexWrap: "wrap",
           }}
         >
-          <Suspense
-            fallback={new Array(8).fill(loadingSizes).map((data, index) => (
-              <SkeletonLoading
-                key={index}
-                {...data}
-                style={{
-                  marginBottom: data.$margin_bottom,
-                }}
-              />
-            ))}
-          >
+          <HydrationBoundary state={dehydrate(queryClient)}>
             {children}
-          </Suspense>
+          </HydrationBoundary>
         </div>
       </main>
     </>

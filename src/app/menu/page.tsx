@@ -1,11 +1,25 @@
+"use client";
+
 import { Categories, Menu as MenuModel } from "@/models/menuModel";
 import { CategoryCard } from "@/components/common/categories/card";
-import { fetchUrl, revalidate } from "@/components/infra/fetch-logic/fetchUrl";
+import { Suspense } from "react";
+import { SkeletonLoading } from "@/components/common/loading";
+import { useGetMenu } from "@/hooks/api/menu";
+import ErrorWrapper from "@/components/common/error";
 
-export default async function Menu() {
-  const data = await fetchUrl<MenuModel>("/menu", {
-    next: { revalidate, tags: ["menu"] },
-  });
+export default function Menu() {
+  const { data, error } = useGetMenu();
+
+  const loadingSizes = {
+    $width: "30rem",
+    $height: "19rem",
+    $border_radius: "1rem",
+    $margin_bottom: "2rem",
+  };
+
+  if (error) {
+    return <ErrorWrapper action={() => window.location.reload()} />;
+  }
 
   return (
     <div
@@ -15,16 +29,28 @@ export default async function Menu() {
         flexWrap: "wrap",
       }}
     >
-      {data?.categories?.map(
-        ({ image_url: imageUrl, name, id }: Categories, key) => (
-          <CategoryCard
-            imageUrl={imageUrl}
-            name={name}
-            categoryId={id}
-            key={key}
+      <Suspense
+        fallback={new Array(8).fill(loadingSizes).map((data, index) => (
+          <SkeletonLoading
+            key={index}
+            {...data}
+            style={{
+              marginBottom: data.$margin_bottom,
+            }}
           />
-        )
-      )}
+        ))}
+      >
+        {data?.categories.map(
+          ({ image_url: imageUrl, name, id }: Categories, key) => (
+            <CategoryCard
+              imageUrl={imageUrl}
+              name={name}
+              categoryId={id}
+              key={key}
+            />
+          )
+        )}
+      </Suspense>
     </div>
   );
 }
