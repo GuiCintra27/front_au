@@ -4,14 +4,31 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { Container } from "./styles";
+import { text } from "stream/consumers";
 
 export function NavBar() {
-  const pages = {
-    Cardápio: "/menu",
-    Cozinha: "/kitchen/categories",
-    Pedidos: "",
-    Retirada: "",
-  };
+  const pages = [
+    {
+      page: "/menu",
+      key: "menu",
+      text: "Cardápio",
+    },
+    {
+      page: "/kitchen/categories",
+      key: "kitchen",
+      text: "Cozinha",
+    },
+    {
+      page: "/orders",
+      key: "orders",
+      text: "Pedidos",
+    },
+    {
+      page: "/orders",
+      key: "orders",
+      text: "Retirada",
+    },
+  ];
 
   const [actualPage, setActualPage] = useState<string>("");
 
@@ -29,24 +46,15 @@ export function NavBar() {
 
   return (
     <Container>
-      {Object.keys(pages).map((page, index) =>
-        page === "Pedidos" || page === "Retirada" ? (
-          <div
-            key={index}
-            onClick={alert}
-            className={pages[page].includes(actualPage) ? "active" : ""}
-          >
-            {page}
+      {pages.map(({ page: url, key, text }) =>
+        text === "Pedidos" || text === "Retirada" ? (
+          <div key={key} onClick={alert}>
+            {text}
           </div>
         ) : (
-          // @ts-expect-error
-          <Link href={pages[page]}>
-            <div
-              key={index}
-              // @ts-expect-error
-              className={pages[page].includes(actualPage) ? "active" : ""}
-            >
-              {page}
+          <Link href={url}>
+            <div key={key} className={url.includes(actualPage) ? "active" : ""}>
+              {text}
             </div>
           </Link>
         )
