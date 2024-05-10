@@ -6,6 +6,8 @@ import {
 import { Categories } from "@/models/menuModel";
 import { Header } from "@/components/common/header";
 import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
+import CategoryForm from "./categoryForm";
+import { Typograph } from "@/components/common/typograph";
 
 export default async function Category() {
   const queryClient = new QueryClient();
