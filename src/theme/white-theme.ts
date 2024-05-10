@@ -8,6 +8,7 @@ export const whiteTheme = {
     },
     stroke: {
       main: "#E8E8EA",
+      secondary: "#0b0b0b",
     },
     disabled: "#9F9F9F",
     grey: {

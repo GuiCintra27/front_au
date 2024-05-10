@@ -11,6 +11,7 @@ declare module "styled-components" {
       };
       stroke: {
         main: string;
+        secondary: string;
       };
       disabled: string;
       grey: {
