@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
+import { AxiosError } from "axios";
 
 import { CategoryForm } from "./categoryForm";
 import { errorToast } from "@/components/UI/alerts";
 import { usePostCategory } from "@/hooks/api/categories";
-import { AxiosError } from "axios";
 
 export default function CreateCategory() {
   const { mutate, error } = usePostCategory();

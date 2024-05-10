@@ -5,25 +5,22 @@ import { useState } from "react";
 import { UseMutateFunction } from "@tanstack/react-query";
 
 import { Container } from "./styles";
-import { DayShift } from "@/models/menuModel";
-import { handleDelete } from "@/components/infra/fetch-logic/categories";
-import { UpdateCategoryModal } from "@/app/kitchen/categories/updateCategoryModal";
+import { Categories, ProductData } from "@/models/menuModel";
+import { handleDelete } from "@/components/infra/fetch-logic/products";
+import { UpdateProductModal } from "@/app/kitchen/products/updateProductModal";
 
-interface CategoryEditCardProps {
-  imageUrl: string;
-  name: string;
-  categoryId: string;
-  dayShift: DayShift;
+interface ProductEditCardProps {
+  product: ProductData;
+  categories: Categories[] | undefined;
   mutateDelete: UseMutateFunction<{}, Error, string, unknown>;
 }
 
-export async function CategoryEditCard({
-  imageUrl,
-  name,
-  categoryId,
-  dayShift,
+export async function ProductEditCard({
+  categories = [],
+  product,
   mutateDelete,
-}: CategoryEditCardProps) {
+}: ProductEditCardProps) {
+  const { name, image_url: imageUrl, id: productId } = product;
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
@@ -34,10 +31,11 @@ export async function CategoryEditCard({
       </div>
 
       {openModal && (
-        <UpdateCategoryModal
-          categoryData={{ name, image_url: imageUrl, day_shift: dayShift }}
+        <UpdateProductModal
+          categories={categories}
+          productData={product}
           setOpenModal={setOpenModal}
-          id={categoryId}
+          id={productId}
         />
       )}
 
@@ -45,7 +43,7 @@ export async function CategoryEditCard({
         <aside>
           <p
             onClick={() =>
-              handleDelete({ mutate: mutateDelete, id: categoryId })
+              handleDelete({ mutate: mutateDelete, id: productId })
             }
           >
             Excluir

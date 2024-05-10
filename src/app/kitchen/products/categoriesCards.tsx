@@ -3,18 +3,19 @@
 import { AxiosError } from "axios";
 import { Suspense, useEffect } from "react";
 
-import { Categories } from "@/models/menuModel";
 import { errorToast } from "@/components/UI/alerts";
 import ErrorWrapper from "@/components/common/error";
-import { useCategoriesApi } from "@/hooks/api/categories";
+import { useProductsApi } from "@/hooks/api/products";
+import { useGetCategories } from "@/hooks/api/categories";
+import { ProductData as Products } from "@/models/menuModel";
 import { SkeletonLoading } from "@/components/common/loading";
-import { CategoryEditCard } from "@/components/common/products/editCard";
+import { ProductEditCard } from "@/components/common/products/editCard";
 
-export default function CategoriesCards() {
-  const { data: categories, error } = useCategoriesApi.get();
-  const { mutate: deleteCategory, error: deleteError } =
-    useCategoriesApi.delete();
-  const { error: updateError } = useCategoriesApi.update();
+export default function ProductsCards() {
+  const { data: products, error } = useProductsApi.get();
+  const { error: updateError } = useProductsApi.update();
+  const { mutate: deleteProduct, error: deleteError } = useProductsApi.delete();
+  const { data: categories, error: categoriesError } = useGetCategories();
 
   const loadingSizes = {
     $width: "30rem",
@@ -33,15 +34,18 @@ export default function CategoriesCards() {
       status = deleteError.response?.status;
     } else if (updateError instanceof AxiosError) {
       status = updateError.response?.status;
+    } else if (categoriesError instanceof AxiosError) {
+      status = categoriesError.response?.status;
     }
 
     if (status) {
       if (status === 409) errorToast("Ja existe uma categoria com esse nome");
       else if (status === 422) errorToast("Dados inválidos");
       else if (status === 404) errorToast("Categoria não encontrada");
+      else if (categoriesError) errorToast("Ocorreu ao buscar categorias");
       else errorToast("Ocorreu um erro no servidor");
     }
-  }, [deleteError, updateError]);
+  }, [deleteError, updateError, categoriesError]);
 
   return (
     <div
@@ -62,18 +66,14 @@ export default function CategoriesCards() {
           />
         ))}
       >
-        {categories?.map(
-          ({ image_url: imageUrl, name, id, day_shift }: Categories) => (
-            <CategoryEditCard
-              imageUrl={imageUrl}
-              name={name}
-              categoryId={id}
-              mutateDelete={deleteCategory}
-              dayShift={day_shift}
-              key={id}
-            />
-          )
-        )}
+        {products?.map((item: Products) => (
+          <ProductEditCard
+            categories={categories}
+            product={item}
+            mutateDelete={deleteProduct}
+            key={item.id}
+          />
+        ))}
       </Suspense>
     </div>
   );

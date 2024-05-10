@@ -4,8 +4,8 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 
-import CreateCategory from "./createCategory";
-import { Categories } from "@/models/menuModel";
+import CreateCategory from "./createProduct";
+import { ProductData } from "@/models/menuModel";
 import CategoriesCards from "./categoriesCards";
 import { Header } from "@/components/common/header";
 import { Typograph } from "@/components/common/typograph";
@@ -15,9 +15,9 @@ export default async function Category() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["categories"],
+    queryKey: ["products"],
     queryFn: async () => {
-      return await fetchUrl<Categories[]>("/categories");
+      return await fetchUrl<ProductData[]>("/products");
     },
   });
 
@@ -25,9 +25,9 @@ export default async function Category() {
     <>
       <Header />
       <main style={{ width: "75%", margin: "6rem auto" }}>
-        <Typograph.SectionTitle>Categorias</Typograph.SectionTitle>
+        <Typograph.SectionTitle>Produtos</Typograph.SectionTitle>
         <Typograph.SectionDescription>
-          Crie uma nova categoria
+          Crie um novo item
         </Typograph.SectionDescription>
 
         <HydrationBoundary state={dehydrate(queryClient)}>
@@ -42,7 +42,7 @@ export default async function Category() {
             }}
           >
             <Typograph.SectionTitle>
-              Veja todas as categorias
+              Veja todos os produtos
             </Typograph.SectionTitle>
             <CategoriesCards />
           </div>

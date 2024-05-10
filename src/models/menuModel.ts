@@ -14,7 +14,7 @@ export interface ProductData {
   id: string;
   name: string;
   description: string;
-  price: number;
+  price: string;
   image_url: string;
   category_id: number;
   day_shift: DayShift;

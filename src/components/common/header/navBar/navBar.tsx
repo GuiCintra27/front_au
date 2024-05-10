@@ -35,6 +35,7 @@ export function NavBar() {
     let page = window.location.pathname;
 
     if (page === "/categories") page = "/menu";
+    if (page.includes("/kitchen")) page = "/kitchen";
 
     setActualPage(page);
   }, []);
