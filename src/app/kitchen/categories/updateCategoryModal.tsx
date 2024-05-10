@@ -5,15 +5,18 @@ import styled from "styled-components";
 import { Dispatch, SetStateAction, useEffect } from "react";
 
 import { CategoryForm } from "./categoryForm";
+import { Categories } from "@/models/menuModel";
 import { errorToast } from "@/components/UI/alerts";
 import { useUpdateCategory } from "@/hooks/api/categories";
 
 export function UpdateCategoryModal({
   setOpenModal,
   id,
+  categoryData,
 }: {
   setOpenModal: Dispatch<SetStateAction<boolean>>;
   id: string;
+  categoryData: Omit<Categories, "id">;
 }) {
   const { mutate, error } = useUpdateCategory();
 
@@ -32,7 +35,7 @@ export function UpdateCategoryModal({
     <Container>
       <div className="bg" onClick={() => setOpenModal(false)} />
       <div className="form">
-        <CategoryForm mutate={mutate} id={id} />
+        <CategoryForm mutate={mutate} id={id} categoryData={categoryData} />
       </div>
     </Container>
   );

@@ -11,14 +11,24 @@ import {
   handleUpdateForm,
 } from "@/components/infra/fetch-logic/categories";
 
-export function CategoryForm({ mutate, id }: { mutate: any; id?: string }) {
+export function CategoryForm({
+  mutate,
+  id,
+  categoryData,
+}: {
+  mutate: any;
+  id?: string;
+  categoryData?: Omit<Categories, "id">;
+}) {
   const categoryForm = useForm<Omit<Categories, "id">>({
     resolver: zodResolver(categoriesSchema),
-    defaultValues: {
-      name: "",
-      image_url: "",
-      day_shift: DayShift.ALL,
-    },
+    defaultValues: categoryData
+      ? categoryData
+      : {
+          name: "",
+          image_url: "",
+          day_shift: DayShift.ALL,
+        },
   });
 
   const {

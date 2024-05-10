@@ -5,6 +5,7 @@ import { useState } from "react";
 import { UseMutateFunction } from "@tanstack/react-query";
 
 import { Container } from "./styles";
+import { DayShift } from "@/models/menuModel";
 import { handleDelete } from "@/components/infra/fetch-logic/categories";
 import { UpdateCategoryModal } from "@/app/kitchen/categories/updateCategoryModal";
 
@@ -12,6 +13,7 @@ interface CategoryEditCardProps {
   imageUrl: string;
   name: string;
   categoryId: string;
+  dayShift: DayShift;
   mutateDelete: UseMutateFunction<{}, Error, string, unknown>;
 }
 
@@ -19,6 +21,7 @@ export async function CategoryEditCard({
   imageUrl,
   name,
   categoryId,
+  dayShift,
   mutateDelete,
 }: CategoryEditCardProps) {
   const [open, setOpen] = useState(false);
@@ -31,7 +34,11 @@ export async function CategoryEditCard({
       </div>
 
       {openModal && (
-        <UpdateCategoryModal setOpenModal={setOpenModal} id={categoryId} />
+        <UpdateCategoryModal
+          categoryData={{ name, image_url: imageUrl, day_shift: dayShift }}
+          setOpenModal={setOpenModal}
+          id={categoryId}
+        />
       )}
 
       {open && (

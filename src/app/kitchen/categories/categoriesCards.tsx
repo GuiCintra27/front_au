@@ -62,15 +62,18 @@ export default function CategoriesCards() {
           />
         ))}
       >
-        {categories?.map(({ image_url: imageUrl, name, id }: Categories) => (
-          <CategoryEditCard
-            imageUrl={imageUrl}
-            name={name}
-            categoryId={id}
-            mutateDelete={deleteCategory}
-            key={id}
-          />
-        ))}
+        {categories?.map(
+          ({ image_url: imageUrl, name, id, day_shift }: Categories) => (
+            <CategoryEditCard
+              imageUrl={imageUrl}
+              name={name}
+              categoryId={id}
+              mutateDelete={deleteCategory}
+              dayShift={day_shift}
+              key={id}
+            />
+          )
+        )}
       </Suspense>
     </div>
   );
