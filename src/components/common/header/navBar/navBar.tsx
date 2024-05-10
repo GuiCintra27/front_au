@@ -24,7 +24,7 @@ export function NavBar() {
     },
     {
       page: "/orders",
-      key: "orders",
+      key: "withdraw",
       text: "Retirada",
     },
   ];
