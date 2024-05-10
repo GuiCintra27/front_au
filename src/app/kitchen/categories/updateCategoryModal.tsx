@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { AxiosError } from "axios";
 import styled from "styled-components";
 import { Dispatch, SetStateAction, useEffect } from "react";
@@ -35,6 +36,13 @@ export function UpdateCategoryModal({
     <Container>
       <div className="bg" onClick={() => setOpenModal(false)} />
       <div className="form">
+        <Image
+          src="/close-icon.svg"
+          alt="close"
+          width={40}
+          height={40}
+          onClick={() => setOpenModal(false)}
+        />
         <CategoryForm mutate={mutate} id={id} categoryData={categoryData} />
       </div>
     </Container>
@@ -64,7 +72,7 @@ const Container = styled.div`
   }
 
   .form {
-    position: absolute;
+    position: relative;
 
     top: 50%;
     left: 50%;
@@ -77,5 +85,14 @@ const Container = styled.div`
 
     border-radius: 1rem;
     background-color: ${({ theme }) => theme.colors.primary};
+
+    img {
+      position: absolute;
+
+      top: 2rem;
+      right: 2rem;
+
+      cursor: pointer;
+    }
   }
 `;
