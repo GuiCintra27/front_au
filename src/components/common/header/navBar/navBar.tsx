@@ -39,13 +39,16 @@ export function NavBar() {
             {page}
           </div>
         ) : (
-          <div
-            key={index}
-            className={pages[page].includes(actualPage) ? "active" : ""}
-          >
-            {/* @ts-expect-error */}
-            <Link href={pages[page]}>{page}</Link>
-          </div>
+          // @ts-expect-error
+          <Link href={pages[page]}>
+            <div
+              key={index}
+              // @ts-expect-error
+              className={pages[page].includes(actualPage) ? "active" : ""}
+            >
+              {page}
+            </div>
+          </Link>
         )
       )}
     </Container>
