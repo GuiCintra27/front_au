@@ -8,7 +8,7 @@ import { errorToast } from "@/components/UI/alerts";
 import ErrorWrapper from "@/components/common/error";
 import { useCategoriesApi } from "@/hooks/api/categories";
 import { SkeletonLoading } from "@/components/common/loading";
-import { CategoryEditCard } from "@/components/common/products/editCard";
+import { CategoryEditCard } from "@/components/common/categories/editCard";
 
 export default function CategoriesCards() {
   const { data: categories, error } = useCategoriesApi.get();
@@ -62,18 +62,13 @@ export default function CategoriesCards() {
           />
         ))}
       >
-        {categories?.map(
-          ({ image_url: imageUrl, name, id, day_shift }: Categories) => (
-            <CategoryEditCard
-              imageUrl={imageUrl}
-              name={name}
-              categoryId={id}
-              mutateDelete={deleteCategory}
-              dayShift={day_shift}
-              key={id}
-            />
-          )
-        )}
+        {categories?.map((item: Categories) => (
+          <CategoryEditCard
+            category={item}
+            mutateDelete={deleteCategory}
+            key={item.id}
+          />
+        ))}
       </Suspense>
     </div>
   );
