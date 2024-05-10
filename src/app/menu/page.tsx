@@ -41,17 +41,16 @@ export default function Menu() {
           />
         ))}
       >
-        {Array.isArray(data?.categories) &&
-          data?.categories?.map(
-            ({ image_url: imageUrl, name, id }: Categories, key) => (
-              <CategoryCard
-                imageUrl={imageUrl}
-                name={name}
-                categoryId={id}
-                key={key}
-              />
-            )
-          )}
+        {data?.categories?.map(
+          ({ image_url: imageUrl, name, id }: Categories, key) => (
+            <CategoryCard
+              imageUrl={imageUrl}
+              name={name}
+              categoryId={id}
+              key={key}
+            />
+          )
+        )}
       </Suspense>
     </div>
   );

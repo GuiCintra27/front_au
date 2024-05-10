@@ -31,10 +31,9 @@ function Categories({
           fontSize: "2rem",
         }}
       >
-        {Array.isArray(data) &&
-          data?.map((data: ProductData, key) => (
-            <ProductCard key={key} {...data} />
-          ))}
+        {data?.map((data: ProductData, key) => (
+          <ProductCard key={key} {...data} />
+        ))}
       </div>
     </>
   );
