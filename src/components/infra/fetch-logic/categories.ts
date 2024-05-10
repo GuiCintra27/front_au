@@ -26,8 +26,6 @@ export function handleCreateForm({
 }) {
   try {
     mutate(data);
-    window.location.reload();
-    successToast("Categoria criada com sucesso");
   } catch (error) {}
 }
 

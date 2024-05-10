@@ -10,6 +10,7 @@ import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
 import { fetchPost } from "@/components/infra/fetch-logic/fetchPost";
 import { fetchDelete } from "@/components/infra/fetch-logic/delete";
 import { fetchUpdate } from "@/components/infra/fetch-logic/fetchupdate";
+import { successToast } from "@/components/UI/alerts";
 
 export function useGetCategories() {
   return useQuery({
@@ -24,12 +25,11 @@ export function usePostCategory(): {
 } {
   const queryClient = useQueryClient();
 
-  const { mutate, failureReason } = useMutation({
+  const { mutate, error } = useMutation({
     mutationFn: async (body: Omit<Categories, "id">) =>
       fetchPost<Categories>({
         url: "/categories",
         body,
-        tag: "categories",
       }),
     mutationKey: ["categories"],
     onSuccess: () => {
@@ -39,10 +39,11 @@ export function usePostCategory(): {
       queryClient.invalidateQueries({
         queryKey: ["menu"],
       });
+      successToast("Categoria criada com sucesso");
     },
   });
 
-  return { mutate, error: failureReason };
+  return { mutate, error };
 }
 
 export function useDeleteCategory(): {
@@ -65,6 +66,7 @@ export function useDeleteCategory(): {
       queryClient.invalidateQueries({
         queryKey: ["menu"],
       });
+      successToast("Categoria excluída com sucesso");
     },
   });
 
