@@ -3,12 +3,12 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
+import CreateCategory from "./createCategory";
 import { Categories } from "@/models/menuModel";
+import CategoriesCards from "./categoriesCards";
 import { Header } from "@/components/common/header";
 import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
-import CategoryForm from "./categoryForm";
 import { Typograph } from "@/components/common/typograph";
-import CategoriesCards from "./categoriesCards";
 
 export default async function Category() {
   const queryClient = new QueryClient();
@@ -30,7 +30,7 @@ export default async function Category() {
         </Typograph.SectionDescription>
 
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <CategoryForm />
+          <CreateCategory />
 
           <div
             style={{

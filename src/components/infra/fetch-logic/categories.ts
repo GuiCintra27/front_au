@@ -30,3 +30,24 @@ export function handleCreateForm({
     successToast("Categoria criada com sucesso");
   } catch (error) {}
 }
+
+export function handleUpdateForm({
+  mutate,
+  data,
+  id,
+}: {
+  mutate: UseMutateFunction<
+    {},
+    Error,
+    { body: Omit<Categories, "id">; id: string },
+    unknown
+  >;
+  data: Omit<Categories, "id">;
+  id: string;
+}) {
+  try {
+    mutate({ body: data, id });
+    window.location.reload();
+    successToast("Categoria criada com sucesso");
+  } catch (error) {}
+}

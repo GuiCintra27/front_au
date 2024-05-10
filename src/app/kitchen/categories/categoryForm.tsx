@@ -1,19 +1,17 @@
 "use client";
 
-import { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { Form } from "@/components/common/form";
-import { errorToast, successToast } from "@/components/UI/alerts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { usePostCategory } from "@/hooks/api/categories";
 import { Categories, DayShift } from "@/models/menuModel";
 import { categoriesSchema } from "@/validations/createAndUpdateCategory";
-import { handleCreateForm } from "@/components/infra/fetch-logic/categories";
+import {
+  handleCreateForm,
+  handleUpdateForm,
+} from "@/components/infra/fetch-logic/categories";
 
-export default function CategoryForm() {
-  const { mutate, error } = usePostCategory();
-
+export function CategoryForm({ mutate, id }: { mutate: any; id?: string }) {
   const categoryForm = useForm<Omit<Categories, "id">>({
     resolver: zodResolver(categoriesSchema),
     defaultValues: {
@@ -28,21 +26,15 @@ export default function CategoryForm() {
     formState: { isSubmitting },
   } = categoryForm;
 
-  useEffect(() => {
-    // @ts-expect-error
-    const status = error?.cause?.status;
-    if (status) {
-      if (status === 409) errorToast("Ja existe uma categoria com esse nome");
-      else if (status === 422) errorToast("Dados inválidos");
-      else errorToast("Ocorreu um erro no servidor");
-    }
-  }, [error]);
-
   return (
     <div style={{ width: "50rem" }}>
       <FormProvider {...categoryForm}>
         <Form.Root
-          onSubmit={handleSubmit((data) => handleCreateForm({ mutate, data }))}
+          onSubmit={handleSubmit((data) =>
+            id
+              ? handleUpdateForm({ mutate, data, id })
+              : handleCreateForm({ mutate, data })
+          )}
         >
           <Form.Input
             name="name"
@@ -54,7 +46,7 @@ export default function CategoryForm() {
           <Form.Input
             name="image_url"
             type="text"
-            placeholder={"Url da image da categoria"}
+            placeholder={"Url da imagem da categoria"}
           />
           <Form.Error field="image_url" />
 
@@ -71,7 +63,7 @@ export default function CategoryForm() {
           <Form.Error field="day_shift" />
 
           <Form.Button disabled={isSubmitting} type="submit">
-            Criar categoria
+            {id ? "Atualizar categoria" : "Criar categoria"}
           </Form.Button>
         </Form.Root>
       </FormProvider>
