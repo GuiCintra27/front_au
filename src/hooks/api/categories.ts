@@ -8,6 +8,7 @@ import {
 import { Categories } from "@/models/menuModel";
 import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
 import { fetchPost } from "@/components/infra/fetch-logic/fetchPost";
+import { fetchDelete } from "@/components/infra/fetch-logic/delete";
 
 export function useGetCategories() {
   return useQuery({
@@ -34,8 +35,28 @@ export function usePostCategory(): {
       queryClient.invalidateQueries({
         queryKey: ["categories"],
       });
+    },
+  });
+
+  return { mutate, error: failureReason };
+}
+
+export function useDeleteCategory(): {
+  mutate: UseMutateFunction<{}, Error, string, unknown>;
+  error: Error | null;
+} {
+  const queryClient = useQueryClient();
+
+  const { mutate, failureReason } = useMutation({
+    mutationFn: async (id: string) =>
+      fetchDelete<{}>({
+        url: "/categories",
+        id,
+      }),
+    mutationKey: ["categories"],
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["menu"],
+        queryKey: ["categories"],
       });
     },
   });
@@ -46,4 +67,5 @@ export function usePostCategory(): {
 export const useCategoriesApi = {
   get: useGetCategories,
   post: usePostCategory,
+  delete: useDeleteCategory,
 };

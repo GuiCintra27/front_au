@@ -1,14 +1,19 @@
 "use client";
 
+import { Suspense, useEffect } from "react";
+
 import { Categories } from "@/models/menuModel";
+import { errorToast } from "@/components/UI/alerts";
 import ErrorWrapper from "@/components/common/error";
-import { useGetCategories } from "@/hooks/api/categories";
-import { CategoryCard } from "@/components/common/categories/card";
-import { Suspense } from "react";
+import { useCategoriesApi } from "@/hooks/api/categories";
 import { SkeletonLoading } from "@/components/common/loading";
+import { CategoryEditCard } from "@/components/common/categories/editCard";
 
 export default function CategoriesCards() {
-  const { data: categories, error } = useGetCategories();
+  const { data: categories, error } = useCategoriesApi.get();
+  const { mutate: deleteCategory, error: deleteError } =
+    useCategoriesApi.delete();
+
   const loadingSizes = {
     $width: "30rem",
     $height: "19rem",
@@ -19,6 +24,15 @@ export default function CategoriesCards() {
   if (error) {
     return <ErrorWrapper action={() => window.location.reload()} />;
   }
+
+  useEffect(() => {
+    // @ts-expect-error
+    const deleteStatus = deleteError?.cause?.deleteStatus;
+    if (deleteStatus) {
+      if (deleteStatus === 404) errorToast("Categoria inexistente");
+      else errorToast("Ocorreu um erro no servidor");
+    }
+  }, [deleteError]);
 
   return (
     <div
@@ -41,10 +55,11 @@ export default function CategoriesCards() {
       >
         {categories &&
           categories?.map(({ image_url: imageUrl, name, id }: Categories) => (
-            <CategoryCard
+            <CategoryEditCard
               imageUrl={imageUrl}
               name={name}
               categoryId={id}
+              mutateDelete={deleteCategory}
               key={id}
             />
           ))}

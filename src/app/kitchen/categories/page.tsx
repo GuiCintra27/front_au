@@ -8,6 +8,7 @@ import { Header } from "@/components/common/header";
 import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
 import CategoryForm from "./categoryForm";
 import { Typograph } from "@/components/common/typograph";
+import CategoriesCards from "./categoriesCards";
 
 export default async function Category() {
   const queryClient = new QueryClient();
@@ -23,7 +24,28 @@ export default async function Category() {
     <>
       <Header />
       <main style={{ width: "75%", margin: "6rem auto" }}>
-        <HydrationBoundary state={dehydrate(queryClient)}></HydrationBoundary>
+        <Typograph.SectionTitle>Categorias</Typograph.SectionTitle>
+        <Typograph.SectionDescription>
+          Crie uma nova categoria
+        </Typograph.SectionDescription>
+
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <CategoryForm />
+
+          <div
+            style={{
+              marginTop: "6rem",
+              display: "flex",
+              gap: "1rem",
+              flexDirection: "column",
+            }}
+          >
+            <Typograph.SectionTitle>
+              Veja todas as categorias
+            </Typograph.SectionTitle>
+            <CategoriesCards />
+          </div>
+        </HydrationBoundary>
       </main>
     </>
   );

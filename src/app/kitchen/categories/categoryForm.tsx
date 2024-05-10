@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { usePostCategory } from "@/hooks/api/categories";
 import { Categories, DayShift } from "@/models/menuModel";
 import { categoriesSchema } from "@/validations/createAndUpdateCategory";
+import { handleCreateForm } from "@/components/infra/fetch-logic/categories";
 
 export default function CategoryForm() {
   const { mutate, error } = usePostCategory();
@@ -27,13 +28,6 @@ export default function CategoryForm() {
     formState: { isSubmitting },
   } = categoryForm;
 
-  function handleForm({ data }: { data: Omit<Categories, "id"> }) {
-    try {
-      mutate(data);
-      successToast("Categoria criada com sucesso");
-    } catch (error) {}
-  }
-
   useEffect(() => {
     // @ts-expect-error
     const status = error?.cause?.status;
@@ -47,7 +41,9 @@ export default function CategoryForm() {
   return (
     <div style={{ width: "50rem" }}>
       <FormProvider {...categoryForm}>
-        <Form.Root onSubmit={handleSubmit((data) => handleForm({ data }))}>
+        <Form.Root
+          onSubmit={handleSubmit((data) => handleCreateForm({ mutate, data }))}
+        >
           <Form.Input
             name="name"
             type="text"

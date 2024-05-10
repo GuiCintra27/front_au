@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 export const Container = styled.div<{ $image_url: string }>`
   margin-bottom: 2rem;
+  padding-inline: 2rem;
 
   height: 19rem;
   width: 30rem;

@@ -13,13 +13,7 @@ export default function QueryProvider({
   const [queryClient] = useState(
     () =>
       new QueryClient({
-        defaultOptions: {
-          queries: {
-            refetchOnWindowFocus: false,
-            staleTime: revalidate,
-            refetchInterval: revalidate,
-          },
-        },
+        defaultOptions: {},
       })
   );
   return (

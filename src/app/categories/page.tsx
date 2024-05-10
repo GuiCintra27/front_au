@@ -8,9 +8,7 @@ async function Categories({
 }: {
   searchParams: { id: string; name: string };
 }) {
-  const data: ProductData[] = await fetchUrl(`/menu/category/${id}`, {
-    next: { revalidate },
-  });
+  const data: ProductData[] = await fetchUrl(`/menu/category/${id}`);
 
   return (
     <>
