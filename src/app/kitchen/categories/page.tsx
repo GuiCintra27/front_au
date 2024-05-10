@@ -1,25 +1,28 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
 import { Categories } from "@/models/menuModel";
-import { CategoryCard } from "@/components/common/categories/card";
-import { fetchUrl, revalidate } from "@/components/infra/fetch-logic/fetchUrl";
+import { Header } from "@/components/common/header";
+import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
 
-export default function Category() {
-  const [categories, setCategories] = useState<Categories[]>([]);
+export default async function Category() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      return await fetchUrl<Categories[]>("/categories");
+    },
+  });
 
   return (
     <>
-      <div>sdada</div>
-      {categories?.map(({ image_url: imageUrl, name, id }: Categories, key) => (
-        <CategoryCard
-          imageUrl={imageUrl}
-          name={name}
-          categoryId={id}
-          key={key}
-        />
-      ))}
+      <Header />
+      <main style={{ width: "75%", margin: "6rem auto" }}>
+        <HydrationBoundary state={dehydrate(queryClient)}></HydrationBoundary>
+      </main>
     </>
   );
 }

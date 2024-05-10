@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Poppins } from "next/font/google";
 
-import GlobalStyle from "./globalStyle";
-import { ThemeProvider } from "@/theme/theme";
-import StyledComponentsRegistry from "@/lib/styledComponentsRegistry";
+import Providers from "@/lib";
 
 const inter = Inter({ subsets: ["latin"], variable: "--inter" });
 const poppins = Poppins({
@@ -25,12 +23,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={`${inter.variable} ${poppins.variable}`}>
-        <StyledComponentsRegistry>
-          <ThemeProvider>
-            <GlobalStyle />
-            {children}
-          </ThemeProvider>
-        </StyledComponentsRegistry>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
