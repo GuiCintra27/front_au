@@ -30,7 +30,7 @@ export default function CategoryForm() {
   function handleForm({ data }: { data: Omit<Categories, "id"> }) {
     try {
       mutate(data);
-      successToast("Categória criada com sucesso");
+      successToast("Categoria criada com sucesso");
     } catch (error) {}
   }
 
