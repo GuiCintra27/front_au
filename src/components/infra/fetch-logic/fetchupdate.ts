@@ -1,3 +1,5 @@
+import axios from "axios";
+
 interface FetchPostProps<T> {
   url: string;
   id: string;
@@ -8,17 +10,12 @@ export async function fetchUpdate<T>({
   body,
   id,
 }: FetchPostProps<T>): Promise<{}> {
-  const response = await fetch(
+  const response = await axios.put<T>(
     `${process.env.NEXT_PUBLIC_API_URL}${url}/${id}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    }
+    body
   );
-  if (!response.ok) {
+
+  if (response.status !== 204) {
     throw new Error(response.statusText, {
       cause: {
         status: response.status,
@@ -26,5 +23,5 @@ export async function fetchUpdate<T>({
     });
   }
 
-  return await response.json();
+  return {};
 }

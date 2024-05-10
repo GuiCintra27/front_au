@@ -105,6 +105,7 @@ export function useUpdateCategory(): {
       queryClient.invalidateQueries({
         queryKey: ["menu"],
       });
+      successToast("Categoria atualizada com sucesso");
     },
   });
 

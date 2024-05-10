@@ -1,4 +1,4 @@
-import { revalidateTag } from "next/cache";
+import axios from "axios";
 
 interface FetchPostProps<T> {
   url: string;
@@ -9,19 +9,12 @@ export async function fetchDelete<T>({
   url,
   id,
   options,
-}: FetchPostProps<T>): Promise<T> {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}${url}/${id}`,
-    {
-      ...options,
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
+}: FetchPostProps<T>): Promise<{}> {
+  const response = await axios.delete<T>(
+    `${process.env.NEXT_PUBLIC_API_URL}${url}/${id}`
   );
 
-  if (!response.ok) {
+  if (response.status !== 204) {
     throw new Error(response.statusText, {
       cause: {
         status: response.status,
@@ -29,5 +22,5 @@ export async function fetchDelete<T>({
     });
   }
 
-  return await response.json();
+  return {};
 }

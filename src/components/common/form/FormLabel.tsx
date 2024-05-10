@@ -18,8 +18,6 @@ export function FormLabel({ text, imagePath, ...rest }: FormLabelProps) {
 const Container = styled.label`
   margin-bottom: -1rem;
 
-  width: 100%;
-
   display: flex;
   gap: 1.3rem;
 

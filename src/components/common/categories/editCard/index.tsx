@@ -6,6 +6,7 @@ import { UseMutateFunction } from "@tanstack/react-query";
 
 import { Container } from "./styles";
 import { handleDelete } from "@/components/infra/fetch-logic/categories";
+import { UpdateCategoryModal } from "@/app/kitchen/categories/updateCategoryModal";
 
 interface CategoryEditCardProps {
   imageUrl: string;
@@ -21,12 +22,17 @@ export async function CategoryEditCard({
   mutateDelete,
 }: CategoryEditCardProps) {
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <Container $image_url={imageUrl}>
       <div id="options" onClick={() => setOpen(!open)}>
         <Image src="/dots-vertical.svg" alt="edit" width={24} height={24} />
       </div>
+
+      {openModal && (
+        <UpdateCategoryModal setOpenModal={setOpenModal} id={categoryId} />
+      )}
 
       {open && (
         <aside>
@@ -38,7 +44,7 @@ export async function CategoryEditCard({
             Excluir
           </p>
           <div className="separator" />
-          <p>Editar</p>
+          <p onClick={() => setOpenModal(true)}>Editar</p>
         </aside>
       )}
       <p>{name}</p>

@@ -8,11 +8,13 @@ import ErrorWrapper from "@/components/common/error";
 import { useCategoriesApi } from "@/hooks/api/categories";
 import { SkeletonLoading } from "@/components/common/loading";
 import { CategoryEditCard } from "@/components/common/categories/editCard";
+import { AxiosError } from "axios";
 
 export default function CategoriesCards() {
   const { data: categories, error } = useCategoriesApi.get();
   const { mutate: deleteCategory, error: deleteError } =
     useCategoriesApi.delete();
+  const { error: updateError } = useCategoriesApi.update();
 
   const loadingSizes = {
     $width: "30rem",
@@ -26,13 +28,20 @@ export default function CategoriesCards() {
   }
 
   useEffect(() => {
-    // @ts-expect-error
-    const deleteStatus = deleteError?.cause?.deleteStatus;
-    if (deleteStatus) {
-      if (deleteStatus === 404) errorToast("Categoria inexistente");
+    let status: number | undefined;
+    if (deleteError instanceof AxiosError) {
+      status = deleteError.response?.status;
+    } else if (updateError instanceof AxiosError) {
+      status = updateError.response?.status;
+    }
+
+    if (status) {
+      if (status === 409) errorToast("Ja existe uma categoria com esse nome");
+      else if (status === 422) errorToast("Dados inválidos");
+      else if (status === 404) errorToast("Categoria não encontrada");
       else errorToast("Ocorreu um erro no servidor");
     }
-  }, [deleteError]);
+  }, [deleteError, updateError]);
 
   return (
     <div
@@ -53,16 +62,15 @@ export default function CategoriesCards() {
           />
         ))}
       >
-        {categories &&
-          categories?.map(({ image_url: imageUrl, name, id }: Categories) => (
-            <CategoryEditCard
-              imageUrl={imageUrl}
-              name={name}
-              categoryId={id}
-              mutateDelete={deleteCategory}
-              key={id}
-            />
-          ))}
+        {categories?.map(({ image_url: imageUrl, name, id }: Categories) => (
+          <CategoryEditCard
+            imageUrl={imageUrl}
+            name={name}
+            categoryId={id}
+            mutateDelete={deleteCategory}
+            key={id}
+          />
+        ))}
       </Suspense>
     </div>
   );
