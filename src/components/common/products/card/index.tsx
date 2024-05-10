@@ -14,7 +14,7 @@ export async function ProductCard({
     <Container>
       <Image src={imageUrl} alt={name} width={350} height={240} />
       <Price>
-        <p>R$ {price.toFixed(2).replace(".", ",")}</p>
+        <p>R$ {Number(price).toFixed(2).replace(".", ",")}</p>
       </Price>
       <div>
         <Name>{name}</Name>
