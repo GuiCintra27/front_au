@@ -83,10 +83,14 @@ export function ProductForm({
           <Form.Select
             name="category_id"
             defaultOption="Selecione uma categoria"
-            optionsList={categories.map((category) => ({
-              value: category.id,
-              text: category.name,
-            }))}
+            optionsList={
+              Array.isArray(categories)
+                ? categories.map((category) => ({
+                    value: category.id,
+                    text: category.name,
+                  }))
+                : []
+            }
           />
           <Form.Error field="category_id" />
 
