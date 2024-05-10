@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { Container } from "./styles";
-import { text } from "stream/consumers";
 
 export function NavBar() {
   const pages = [
@@ -52,8 +51,8 @@ export function NavBar() {
             {text}
           </div>
         ) : (
-          <Link href={url}>
-            <div key={key} className={url.includes(actualPage) ? "active" : ""}>
+          <Link key={key} href={url}>
+            <div className={url.includes(actualPage) ? "active" : ""}>
               {text}
             </div>
           </Link>
