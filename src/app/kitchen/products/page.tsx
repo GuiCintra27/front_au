@@ -6,7 +6,7 @@ import {
 
 import CreateCategory from "./createProduct";
 import { ProductData } from "@/models/menuModel";
-import CategoriesCards from "./categoriesCards";
+import CategoriesCards from "./productsCards";
 import { Header } from "@/components/common/header";
 import { Typograph } from "@/components/common/typograph";
 import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
