@@ -1,11 +1,12 @@
 "use client";
 
-import { Categories, Menu as MenuModel } from "@/models/menuModel";
-import { CategoryCard } from "@/components/common/categories/card";
 import { Suspense } from "react";
-import { SkeletonLoading } from "@/components/common/loading";
+
 import { useGetMenu } from "@/hooks/api/menu";
 import ErrorWrapper from "@/components/common/error";
+import { Categories, Menu as MenuModel } from "@/models/menuModel";
+import { CategoryCard } from "@/components/common/categories/card";
+import { SkeletonLoading } from "@/components/common/loading";
 
 export default function Menu() {
   const { data, error } = useGetMenu();
@@ -40,16 +41,17 @@ export default function Menu() {
           />
         ))}
       >
-        {data?.categories.map(
-          ({ image_url: imageUrl, name, id }: Categories, key) => (
-            <CategoryCard
-              imageUrl={imageUrl}
-              name={name}
-              categoryId={id}
-              key={key}
-            />
-          )
-        )}
+        {Array.isArray(data?.categories) &&
+          data?.categories?.map(
+            ({ image_url: imageUrl, name, id }: Categories, key) => (
+              <CategoryCard
+                imageUrl={imageUrl}
+                name={name}
+                categoryId={id}
+                key={key}
+              />
+            )
+          )}
       </Suspense>
     </div>
   );

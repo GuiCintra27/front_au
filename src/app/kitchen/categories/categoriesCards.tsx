@@ -62,13 +62,14 @@ export default function CategoriesCards() {
           />
         ))}
       >
-        {categories?.map((item: Categories) => (
-          <CategoryEditCard
-            category={item}
-            mutateDelete={deleteCategory}
-            key={item.id}
-          />
-        ))}
+        {Array.isArray(categories) &&
+          categories?.map((item: Categories) => (
+            <CategoryEditCard
+              category={item}
+              mutateDelete={deleteCategory}
+              key={item.id}
+            />
+          ))}
       </Suspense>
     </div>
   );

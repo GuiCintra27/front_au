@@ -37,7 +37,7 @@ export function usePostProduct(): {
         queryKey: ["products"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["menu"],
+        queryKey: ["menuCategory"],
       });
       successToast("Produto criado com sucesso");
     },
@@ -64,7 +64,7 @@ export function useDeleteProduct(): {
         queryKey: ["products"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["menu"],
+        queryKey: ["menuCategory"],
       });
       successToast("Produto excluído com sucesso");
     },
@@ -103,7 +103,7 @@ export function useUpdateProduct(): {
         queryKey: ["products"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["menu"],
+        queryKey: ["menuCategory"],
       });
       successToast("Produto atualizado com sucesso");
     },

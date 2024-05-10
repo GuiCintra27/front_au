@@ -12,7 +12,7 @@ export async function ProductCard({
 }: ProductData) {
   return (
     <Container>
-      <Image src={imageUrl} alt={name} width={350} height={240} />
+      <Image priority src={imageUrl} alt={name} width={350} height={240} />
       <Price>
         <p>R$ {Number(price).toFixed(2).replace(".", ",")}</p>
       </Price>

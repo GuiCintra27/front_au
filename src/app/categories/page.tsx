@@ -1,14 +1,21 @@
-import { ProductData } from "@/models/menuModel";
-import { Typograph } from "@/components/common/typograph";
-import { fetchUrl, revalidate } from "@/components/infra/fetch-logic/fetchUrl";
-import { ProductCard } from "@/components/common/products/card";
+"use client";
 
-async function Categories({
+import { ProductData } from "@/models/menuModel";
+import { useGetMenuCategory } from "@/hooks/api/menu";
+import { Typograph } from "@/components/common/typograph";
+import { ProductCard } from "@/components/common/products/card";
+import { useEffect } from "react";
+
+function Categories({
   searchParams: { id, name },
 }: {
   searchParams: { id: string; name: string };
 }) {
-  const data: ProductData[] = await fetchUrl(`/menu/category/${id}`);
+  const { data, error } = useGetMenuCategory({ id: id as string });
+
+  if (error) {
+    throw error;
+  }
 
   return (
     <>
@@ -24,9 +31,10 @@ async function Categories({
           fontSize: "2rem",
         }}
       >
-        {data.map((data: ProductData, key) => (
-          <ProductCard key={key} {...data} />
-        ))}
+        {Array.isArray(data) &&
+          data?.map((data: ProductData, key) => (
+            <ProductCard key={key} {...data} />
+          ))}
       </div>
     </>
   );
