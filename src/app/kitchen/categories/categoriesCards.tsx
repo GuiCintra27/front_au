@@ -23,10 +23,6 @@ export default function CategoriesCards() {
     $margin_bottom: "2rem",
   };
 
-  if (error) {
-    return <ErrorWrapper action={() => window.location.reload()} />;
-  }
-
   useEffect(() => {
     let status: number | undefined;
     if (deleteError instanceof AxiosError) {
@@ -42,6 +38,10 @@ export default function CategoriesCards() {
       else errorToast("Ocorreu um erro no servidor");
     }
   }, [deleteError, updateError]);
+
+  if (error) {
+    return <ErrorWrapper action={() => window.location.reload()} />;
+  }
 
   return (
     <div

@@ -24,10 +24,6 @@ export default function ProductsCards() {
     $margin_bottom: "2rem",
   };
 
-  if (error) {
-    return <ErrorWrapper action={() => window.location.reload()} />;
-  }
-
   useEffect(() => {
     let status: number | undefined;
     if (deleteError instanceof AxiosError) {
@@ -46,6 +42,10 @@ export default function ProductsCards() {
       else errorToast("Ocorreu um erro no servidor");
     }
   }, [deleteError, updateError, categoriesError]);
+
+  if (error) {
+    return <ErrorWrapper action={() => window.location.reload()} />;
+  }
 
   return (
     <div
