@@ -1,15 +1,19 @@
-export async function fetchUrl<T>(
-  url: string,
-  options?: RequestInit
-): Promise<T> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
-    ...options,
-  });
-  if (!response.ok) {
-    throw new Error(`Failed to fetch data from ${url}`);
+import axios from "axios";
+
+export async function fetchUrl<T>(url: string): Promise<T> {
+  const response = await axios.get<T>(
+    `${process.env.NEXT_PUBLIC_API_URL}${url}`
+  );
+
+  if (response.status !== 200) {
+    throw new Error(response.statusText, {
+      cause: {
+        status: response.status,
+      },
+    });
   }
 
-  return await response.json();
+  return response.data;
 }
 
 export const revalidate = 1000 * 60 * 60 * 24; // 24 hours
