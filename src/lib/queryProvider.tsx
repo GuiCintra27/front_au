@@ -16,6 +16,8 @@ export default function QueryProvider({
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false,
+            staleTime: revalidate,
+            refetchInterval: revalidate,
           },
         },
       })
