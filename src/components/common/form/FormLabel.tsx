@@ -3,13 +3,11 @@ import styled from "styled-components";
 
 interface FormLabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   text: string;
-  imagePath?: string;
 }
 
-export function FormLabel({ text, imagePath, ...rest }: FormLabelProps) {
+export function FormLabel({ text, ...rest }: FormLabelProps) {
   return (
     <Container {...rest}>
-      {imagePath && <img src={imagePath} alt={text} />}
       <p>{text}</p>
     </Container>
   );
