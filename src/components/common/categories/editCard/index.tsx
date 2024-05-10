@@ -14,7 +14,7 @@ interface CategoryEditCardProps {
   mutateDelete: UseMutateFunction<{}, Error, string, unknown>;
 }
 
-export async function CategoryEditCard({
+export function CategoryEditCard({
   category,
   mutateDelete,
 }: CategoryEditCardProps) {

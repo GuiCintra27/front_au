@@ -1,5 +1,4 @@
 import axios from "axios";
-import { revalidateTag } from "next/cache";
 
 interface FetchPostProps<T> {
   url: string;

@@ -8,7 +8,6 @@ interface FetchPostProps<T> {
 export async function fetchDelete<T>({
   url,
   id,
-  options,
 }: FetchPostProps<T>): Promise<{}> {
   const response = await axios.delete<T>(
     `${process.env.NEXT_PUBLIC_API_URL}${url}/${id}`

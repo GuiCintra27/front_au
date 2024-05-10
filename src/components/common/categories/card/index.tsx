@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Container } from "./styles";
 
-export async function CategoryCard({
+export function CategoryCard({
   imageUrl,
   name,
   categoryId,

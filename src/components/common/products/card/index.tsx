@@ -4,7 +4,7 @@ import { Container, Name, Price } from "./styles";
 import { ProductData } from "@/models/menuModel";
 import { Typograph } from "../../typograph";
 
-export async function ProductCard({
+export function ProductCard({
   name,
   description,
   image_url: imageUrl,

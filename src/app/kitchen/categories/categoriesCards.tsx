@@ -11,7 +11,7 @@ import { SkeletonLoading } from "@/components/common/loading";
 import { CategoryEditCard } from "@/components/common/categories/editCard";
 
 export default function CategoriesCards() {
-  const { data: categories, error } = useCategoriesApi.get();
+  const { data: categories, error, isFetching } = useCategoriesApi.get();
   const { mutate: deleteCategory, error: deleteError } =
     useCategoriesApi.delete();
   const { error: updateError } = useCategoriesApi.update();
@@ -51,26 +51,14 @@ export default function CategoriesCards() {
         flexWrap: "wrap",
       }}
     >
-      <Suspense
-        fallback={new Array(8).fill(loadingSizes).map((data, index) => (
-          <SkeletonLoading
-            key={index}
-            {...data}
-            style={{
-              marginBottom: data.$margin_bottom,
-            }}
+      {Array.isArray(categories) &&
+        categories?.map((item: Categories) => (
+          <CategoryEditCard
+            category={item}
+            mutateDelete={deleteCategory}
+            key={item.id}
           />
         ))}
-      >
-        {Array.isArray(categories) &&
-          categories?.map((item: Categories) => (
-            <CategoryEditCard
-              category={item}
-              mutateDelete={deleteCategory}
-              key={item.id}
-            />
-          ))}
-      </Suspense>
     </div>
   );
 }
