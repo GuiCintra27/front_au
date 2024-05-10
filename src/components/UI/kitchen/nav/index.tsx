@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Container } from "./styles";
 
 export default function Nav({ page }: { page: string }) {
-  console.log({ page });
   return (
     <Container>
       <Link href="/kitchen/categories">
