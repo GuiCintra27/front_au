@@ -14,7 +14,7 @@ import { successToast } from "@/components/UI/alerts";
 
 export function useGetCategories() {
   return useQuery({
-    queryFn: async () => fetchUrl<Categories[]>("/categories"),
+    queryFn: async () => await fetchUrl<Categories[]>("/categories"),
     queryKey: ["categories"],
   });
 }
@@ -27,7 +27,7 @@ export function usePostCategory(): {
 
   const { mutate, error } = useMutation({
     mutationFn: async (body: Omit<Categories, "id">) =>
-      fetchPost<Categories>({
+      await fetchPost<Categories>({
         url: "/categories",
         body,
       }),
@@ -54,7 +54,7 @@ export function useDeleteCategory(): {
 
   const { mutate, failureReason } = useMutation({
     mutationFn: async (id: string) =>
-      fetchDelete<{}>({
+      await fetchDelete<{}>({
         url: "/categories",
         id,
       }),
@@ -92,7 +92,7 @@ export function useUpdateCategory(): {
       body: Omit<Categories, "id">;
       id: string;
     }) =>
-      fetchUpdate<Categories>({
+      await fetchUpdate<Categories>({
         url: "/categories",
         body,
         id,

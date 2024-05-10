@@ -14,7 +14,7 @@ import { successToast } from "@/components/UI/alerts";
 
 export function useGetProducts() {
   return useQuery({
-    queryFn: async () => fetchUrl<Products[]>("/products"),
+    queryFn: async () => await fetchUrl<Products[]>("/products"),
     queryKey: ["products"],
   });
 }
@@ -27,7 +27,7 @@ export function usePostProduct(): {
 
   const { mutate, error } = useMutation({
     mutationFn: async (body: Omit<Products, "id">) =>
-      fetchPost<Products>({
+      await fetchPost<Products>({
         url: "/products",
         body,
       }),
@@ -54,7 +54,7 @@ export function useDeleteProduct(): {
 
   const { mutate, failureReason } = useMutation({
     mutationFn: async (id: string) =>
-      fetchDelete<{}>({
+      await fetchDelete<{}>({
         url: "/products",
         id,
       }),
@@ -92,7 +92,7 @@ export function useUpdateProduct(): {
       body: Omit<Products, "id">;
       id: string;
     }) =>
-      fetchUpdate<Products>({
+      await fetchUpdate<Products>({
         url: "/products",
         body,
         id,

@@ -11,7 +11,7 @@ import { ProductData } from "@/models/menuModel";
 import { Typograph } from "@/components/common/typograph";
 import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
 
-export default async function Category() {
+export default async function Product() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
