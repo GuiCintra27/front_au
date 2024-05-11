@@ -1,6 +1,5 @@
 import { UseMutateFunction } from "@tanstack/react-query";
 
-import { successToast } from "@/components/UI/alerts";
 import { Categories } from "@/models/menuModel";
 
 export function handleDelete({
@@ -10,10 +9,7 @@ export function handleDelete({
   mutate: UseMutateFunction<{}, Error, string, unknown>;
   id: string;
 }) {
-  try {
-    mutate(id);
-    successToast("Categoria excluída com sucesso");
-  } catch (error) {}
+  mutate(id);
 }
 
 export function handleCreateForm({
@@ -23,9 +19,7 @@ export function handleCreateForm({
   mutate: UseMutateFunction<Categories, Error, Omit<Categories, "id">, unknown>;
   data: Omit<Categories, "id">;
 }) {
-  try {
-    mutate(data);
-  } catch (error) {}
+  mutate(data);
 }
 
 export function handleUpdateForm({
@@ -42,8 +36,5 @@ export function handleUpdateForm({
   data: Omit<Categories, "id">;
   id: string;
 }) {
-  try {
-    mutate({ body: data, id });
-    successToast("Categoria criada com sucesso");
-  } catch (error) {}
+  mutate({ body: data, id });
 }

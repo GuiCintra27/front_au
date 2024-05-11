@@ -10,10 +10,7 @@ export function handleDelete({
   mutate: UseMutateFunction<{}, Error, string, unknown>;
   id: string;
 }) {
-  try {
-    mutate(id);
-    successToast("Categoria excluída com sucesso");
-  } catch (error) {}
+  mutate(id);
 }
 
 export function handleCreateForm({
@@ -23,9 +20,7 @@ export function handleCreateForm({
   mutate: UseMutateFunction<Products, Error, Omit<Products, "id">, unknown>;
   data: Omit<Products, "id">;
 }) {
-  try {
-    mutate(data);
-  } catch (error) {}
+  mutate(data);
 }
 
 export function handleUpdateForm({
@@ -42,8 +37,5 @@ export function handleUpdateForm({
   data: Omit<Products, "id">;
   id: string;
 }) {
-  try {
-    mutate({ body: data, id });
-    successToast("Categoria criada com sucesso");
-  } catch (error) {}
+  mutate({ body: data, id });
 }
