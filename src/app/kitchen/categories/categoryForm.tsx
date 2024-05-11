@@ -63,7 +63,6 @@ export function CategoryForm({
           <Form.Label text="Turno da categoria" />
           <Form.Select
             name="day_shift"
-            defaultOption="Todos"
             optionsList={[
               { value: DayShift.ALL, text: "Todos" },
               { value: DayShift.DAY, text: "Dia" },

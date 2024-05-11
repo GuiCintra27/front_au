@@ -4,23 +4,13 @@ import { useFormContext } from "react-hook-form";
 
 interface FormSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   name: string;
-  defaultOption: string;
   optionsList: { value: string; text: string }[];
 }
 
-export function FormSelect({
-  name,
-  defaultOption,
-  optionsList,
-  ...rest
-}: FormSelectProps) {
+export function FormSelect({ name, optionsList, ...rest }: FormSelectProps) {
   const { register } = useFormContext();
   return (
     <Select {...register(name)} {...rest}>
-      <option value="" disabled={true}>
-        {defaultOption}
-      </option>
-
       {optionsList.map((item, index) => (
         <option key={index} value={item.value}>
           {item.text}

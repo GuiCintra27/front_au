@@ -26,6 +26,10 @@ export function ProductForm({
   id?: string;
   productData?: Omit<Products, "id">;
 }) {
+  const defaultCategories = [
+    { name: "Selecione uma categoria", id: "" },
+    ...categories,
+  ];
   const productForm = useForm<Omit<Products, "id">>({
     resolver: zodResolver(productsSchema),
     defaultValues: productData
@@ -82,22 +86,16 @@ export function ProductForm({
           <Form.Label text="Categoria do produto" />
           <Form.Select
             name="category_id"
-            defaultOption="Selecione uma categoria"
-            optionsList={
-              Array.isArray(categories)
-                ? categories.map((category) => ({
-                    value: category.id,
-                    text: category.name,
-                  }))
-                : []
-            }
+            optionsList={defaultCategories.map((category) => ({
+              value: category.id,
+              text: category.name,
+            }))}
           />
           <Form.Error field="category_id" />
 
           <Form.Label text="Turno do produto" />
           <Form.Select
             name="day_shift"
-            defaultOption="Todos"
             optionsList={[
               { value: DayShift.ALL, text: "Todos" },
               { value: DayShift.DAY, text: "Dia" },
