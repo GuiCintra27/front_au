@@ -4,19 +4,21 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { Dispatch, SetStateAction } from "react";
 
 import { Categories } from "@/models/menuModel";
+import { errorToast, successToast } from "@/components/UI/alerts";
 import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
-import { fetchPost } from "@/components/infra/fetch-logic/fetchPost";
 import { fetchDelete } from "@/components/infra/fetch-logic/delete";
+import { fetchPost } from "@/components/infra/fetch-logic/fetchPost";
 import { fetchUpdate } from "@/components/infra/fetch-logic/fetchupdate";
-import { successToast } from "@/components/UI/alerts";
 
 export function useGetCategories() {
   return useQuery({
     queryFn: async () => await fetchUrl<Categories[]>("/categories"),
     queryKey: ["categories"],
+    retry: 3,
   });
 }
 
@@ -41,6 +43,12 @@ export function usePostCategory(): {
         queryKey: ["menu"],
       });
       successToast("Categoria criada com sucesso");
+    },
+    onError(error: AxiosError) {
+      const status = error?.response?.status;
+      if (status === 409) errorToast("Ja existe uma categoria com esse nome");
+      else if (status === 422) errorToast("Dados inválidos");
+      else errorToast("Ocorreu um erro no servidor");
     },
   });
 
@@ -68,6 +76,11 @@ export function useDeleteCategory(): {
         queryKey: ["menu"],
       });
       successToast("Categoria excluída com sucesso");
+    },
+    onError(error: AxiosError) {
+      const status = error?.response?.status;
+      if (status === 404) errorToast("Categoria não encontrada");
+      else errorToast("Ocorreu um erro no servidor");
     },
   });
 
@@ -110,6 +123,14 @@ export function useUpdateCategory(
       });
       successToast("Categoria atualizada com sucesso");
       setOpenModal(false);
+    },
+    onError(error: AxiosError) {
+      const status = error?.response?.status;
+
+      if (status === 404) errorToast("Categoria não encontrada");
+      if (status === 409) errorToast("Ja existe uma categoria com esse nome");
+      else if (status === 422) errorToast("Dados inválidos");
+      else errorToast("Ocorreu um erro no servidor");
     },
   });
 

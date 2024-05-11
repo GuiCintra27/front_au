@@ -1,13 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { AxiosError } from "axios";
 import styled from "styled-components";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 import { CategoryForm } from "./categoryForm";
 import { Categories } from "@/models/menuModel";
-import { errorToast } from "@/components/UI/alerts";
 import { useUpdateCategory } from "@/hooks/api/categories";
 
 interface UpdateCategoryModalProps {
@@ -21,18 +19,7 @@ export function UpdateCategoryModal({
   id,
   categoryData,
 }: UpdateCategoryModalProps) {
-  const { mutate, error } = useUpdateCategory(setOpenModal);
-
-  useEffect(() => {
-    if (error instanceof AxiosError) {
-      const status = error?.response?.status;
-
-      if (status === 409) errorToast("Ja existe uma categoria com esse nome");
-      else if (status === 404) errorToast("Categoria não encontrada");
-      else if (status === 422) errorToast("Dados inválidos");
-      else errorToast("Ocorreu um erro no servidor");
-    }
-  }, [error]);
+  const { mutate } = useUpdateCategory(setOpenModal);
 
   return (
     <Container>

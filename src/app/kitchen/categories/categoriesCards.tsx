@@ -1,6 +1,5 @@
 "use client";
 
-import { AxiosError } from "axios";
 import { Suspense, useEffect } from "react";
 
 import { Categories } from "@/models/menuModel";
@@ -12,9 +11,7 @@ import { CategoryEditCard } from "@/components/common/categories/editCard";
 
 export default function CategoriesCards() {
   const { data: categories, error } = useCategoriesApi.get();
-  const { mutate: deleteCategory, error: deleteError } =
-    useCategoriesApi.delete();
-  const { error: updateError } = useCategoriesApi.update();
+  const { mutate: deleteCategory } = useCategoriesApi.delete();
 
   const loadingSizes = {
     $width: "30rem",
@@ -24,20 +21,10 @@ export default function CategoriesCards() {
   };
 
   useEffect(() => {
-    let status: number | undefined;
-    if (deleteError instanceof AxiosError) {
-      status = deleteError.response?.status;
-    } else if (updateError instanceof AxiosError) {
-      status = updateError.response?.status;
+    if (error) {
+      errorToast("Ocorreu ao buscar categorias");
     }
-
-    if (status) {
-      if (status === 409) errorToast("Ja existe uma categoria com esse nome");
-      else if (status === 422) errorToast("Dados inválidos");
-      else if (status === 404) errorToast("Categoria não encontrada");
-      else errorToast("Ocorreu um erro no servidor");
-    }
-  }, [deleteError, updateError]);
+  }, [error]);
 
   if (error) {
     return <ErrorWrapper action={() => window.location.reload()} />;

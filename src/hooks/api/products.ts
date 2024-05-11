@@ -4,19 +4,21 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { Dispatch, SetStateAction } from "react";
 
 import { ProductData as Products } from "@/models/menuModel";
+import { errorToast, successToast } from "@/components/UI/alerts";
 import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
-import { fetchPost } from "@/components/infra/fetch-logic/fetchPost";
 import { fetchDelete } from "@/components/infra/fetch-logic/delete";
+import { fetchPost } from "@/components/infra/fetch-logic/fetchPost";
 import { fetchUpdate } from "@/components/infra/fetch-logic/fetchupdate";
-import { successToast } from "@/components/UI/alerts";
 
 export function useGetProducts() {
   return useQuery({
     queryFn: async () => await fetchUrl<Products[]>("/products"),
     queryKey: ["products"],
+    retry: 3,
   });
 }
 
@@ -41,6 +43,12 @@ export function usePostProduct(): {
         queryKey: ["categoryMenu"],
       });
       successToast("Produto criado com sucesso");
+    },
+    onError(error: AxiosError) {
+      const status = error?.response?.status;
+      if (status === 409) errorToast("Ja existe um produto com esse nome");
+      else if (status === 422) errorToast("Dados inválidos");
+      else errorToast("Ocorreu um erro no servidor");
     },
   });
 
@@ -68,6 +76,11 @@ export function useDeleteProduct(): {
         queryKey: ["categoryMenu"],
       });
       successToast("Produto excluído com sucesso");
+    },
+    onError(error: AxiosError) {
+      const status = error?.response?.status;
+      if (status === 404) errorToast("Produto não encontrado");
+      else errorToast("Ocorreu um erro no servidor");
     },
   });
 
@@ -110,6 +123,14 @@ export function useUpdateProduct(
       });
       successToast("Produto atualizado com sucesso");
       setOpenModal(false);
+    },
+    onError(error: AxiosError) {
+      const status = error?.response?.status;
+
+      if (status === 404) errorToast("Produto não encontrado");
+      if (status === 409) errorToast("Ja existe um produto com esse nome");
+      else if (status === 422) errorToast("Dados inválidos");
+      else errorToast("Ocorreu um erro no servidor");
     },
   });
 

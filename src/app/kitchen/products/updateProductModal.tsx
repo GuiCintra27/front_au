@@ -1,12 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { AxiosError } from "axios";
 import styled from "styled-components";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 import { ProductForm } from "./productForm";
-import { errorToast } from "@/components/UI/alerts";
 import { useUpdateProduct } from "@/hooks/api/products";
 import { Categories, ProductData as Products } from "@/models/menuModel";
 
@@ -21,18 +19,7 @@ export function UpdateProductModal({
   productData: Omit<Products, "id">;
   categories: Categories[] | undefined;
 }) {
-  const { mutate, error } = useUpdateProduct(setOpenModal);
-
-  useEffect(() => {
-    if (error instanceof AxiosError) {
-      const status = error?.response?.status;
-
-      if (status === 409) errorToast("Ja existe uma categoria com esse nome");
-      else if (status === 404) errorToast("Categoria não encontrada");
-      else if (status === 422) errorToast("Dados inválidos");
-      else errorToast("Ocorreu um erro no servidor");
-    }
-  }, [error]);
+  const { mutate } = useUpdateProduct(setOpenModal);
 
   return (
     <Container>
