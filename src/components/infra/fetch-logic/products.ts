@@ -1,6 +1,5 @@
 import { UseMutateFunction } from "@tanstack/react-query";
 
-import { successToast } from "@/components/UI/alerts";
 import { ProductData as Products } from "@/models/menuModel";
 
 export function handleDelete({
