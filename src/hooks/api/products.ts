@@ -4,6 +4,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { Dispatch, SetStateAction } from "react";
 
 import { ProductData as Products } from "@/models/menuModel";
 import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
@@ -73,7 +74,9 @@ export function useDeleteProduct(): {
   return { mutate, error: failureReason };
 }
 
-export function useUpdateProduct(): {
+export function useUpdateProduct(
+  setOpenModal: Dispatch<SetStateAction<boolean>>
+): {
   mutate: UseMutateFunction<
     {},
     Error,
@@ -106,6 +109,7 @@ export function useUpdateProduct(): {
         queryKey: ["categoryMenu"],
       });
       successToast("Produto atualizado com sucesso");
+      setOpenModal(false);
     },
   });
 

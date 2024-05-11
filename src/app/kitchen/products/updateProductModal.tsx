@@ -21,7 +21,7 @@ export function UpdateProductModal({
   productData: Omit<Products, "id">;
   categories: Categories[] | undefined;
 }) {
-  const { mutate, error } = useUpdateProduct();
+  const { mutate, error } = useUpdateProduct(setOpenModal);
 
   useEffect(() => {
     if (error instanceof AxiosError) {

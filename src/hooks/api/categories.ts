@@ -4,6 +4,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { Dispatch, SetStateAction } from "react";
 
 import { Categories } from "@/models/menuModel";
 import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
@@ -73,7 +74,9 @@ export function useDeleteCategory(): {
   return { mutate, error: failureReason };
 }
 
-export function useUpdateCategory(): {
+export function useUpdateCategory(
+  setOpenModal: Dispatch<SetStateAction<boolean>>
+): {
   mutate: UseMutateFunction<
     {},
     Error,
@@ -106,6 +109,7 @@ export function useUpdateCategory(): {
         queryKey: ["menu"],
       });
       successToast("Categoria atualizada com sucesso");
+      setOpenModal(false);
     },
   });
 

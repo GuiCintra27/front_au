@@ -19,7 +19,7 @@ export function UpdateCategoryModal({
   id: string;
   categoryData: Omit<Categories, "id">;
 }) {
-  const { mutate, error } = useUpdateCategory();
+  const { mutate, error } = useUpdateCategory(setOpenModal);
 
   useEffect(() => {
     if (error instanceof AxiosError) {
