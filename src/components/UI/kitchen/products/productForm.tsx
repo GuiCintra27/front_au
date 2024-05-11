@@ -26,8 +26,9 @@ export function ProductForm({
   mutate,
   id,
   productData,
-  categories = [],
+  categories,
 }: ProductFormProps) {
+  Array.isArray(categories) ? null : (categories = []);
   const defaultCategories = [
     { name: "Selecione uma categoria", id: "" },
     ...categories,

@@ -8,8 +8,8 @@ import Nav from "@/components/UI/kitchen/nav";
 import { ProductData } from "@/models/menuModel";
 import { Typograph } from "@/components/common/typograph";
 import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
-import CreateCategory from "@/components/UI/kitchen/products/createProduct";
-import CategoriesCards from "@/components/UI/kitchen/products/productsCards";
+import CreateProduct from "@/components/UI/kitchen/products/createProduct";
+import ProductsCards from "@/components/UI/kitchen/products/productsCards";
 
 export default async function Product() {
   const queryClient = new QueryClient();
@@ -30,7 +30,7 @@ export default async function Product() {
       </Typograph.SectionDescription>
 
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <CreateCategory />
+        <CreateProduct />
 
         <div
           style={{
@@ -43,7 +43,7 @@ export default async function Product() {
           <Typograph.SectionTitle>
             Veja todos os produtos
           </Typograph.SectionTitle>
-          <CategoriesCards />
+          <ProductsCards />
         </div>
       </HydrationBoundary>
     </main>
