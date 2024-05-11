@@ -3,10 +3,10 @@
 import { Suspense } from "react";
 
 import { useGetMenu } from "@/hooks/api/menu";
+import { Categories } from "@/models/menuModel";
 import ErrorWrapper from "@/components/common/error";
-import { Categories, Menu as MenuModel } from "@/models/menuModel";
-import { CategoryCard } from "@/components/common/categories/card";
 import { SkeletonLoading } from "@/components/common/loading";
+import { CategoryCard } from "@/components/common/categories/card";
 
 export default function Menu() {
   const { data, error } = useGetMenu();

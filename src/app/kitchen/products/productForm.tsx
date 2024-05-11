@@ -15,17 +15,19 @@ import {
   handleUpdateForm,
 } from "@/components/infra/fetch-logic/products";
 
+interface ProductFormProps {
+  mutate: any;
+  categories: Categories[] | undefined;
+  id?: string;
+  productData?: Omit<Products, "id">;
+}
+
 export function ProductForm({
   mutate,
   id,
   productData,
   categories = [],
-}: {
-  mutate: any;
-  categories: Categories[] | undefined;
-  id?: string;
-  productData?: Omit<Products, "id">;
-}) {
+}: ProductFormProps) {
   const defaultCategories = [
     { name: "Selecione uma categoria", id: "" },
     ...categories,

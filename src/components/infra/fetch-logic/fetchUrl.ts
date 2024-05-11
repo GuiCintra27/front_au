@@ -15,5 +15,3 @@ export async function fetchUrl<T>(url: string): Promise<T> {
 
   return response.data;
 }
-
-export const revalidate = 1000 * 60 * 60 * 24; // 24 hours

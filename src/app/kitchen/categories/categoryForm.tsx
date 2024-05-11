@@ -11,15 +11,13 @@ import {
   handleUpdateForm,
 } from "@/components/infra/fetch-logic/categories";
 
-export function CategoryForm({
-  mutate,
-  id,
-  categoryData,
-}: {
+interface CategoryFormProps {
   mutate: any;
   id?: string;
   categoryData?: Omit<Categories, "id">;
-}) {
+}
+
+export function CategoryForm({ mutate, id, categoryData }: CategoryFormProps) {
   const categoryForm = useForm<Omit<Categories, "id">>({
     resolver: zodResolver(categoriesSchema),
     defaultValues: categoryData

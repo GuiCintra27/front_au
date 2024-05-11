@@ -2,31 +2,25 @@ import { UseMutateFunction } from "@tanstack/react-query";
 
 import { ProductData as Products } from "@/models/menuModel";
 
-export function handleDelete({
-  mutate,
-  id,
-}: {
+interface DeleteProps {
   mutate: UseMutateFunction<{}, Error, string, unknown>;
   id: string;
-}) {
+}
+
+export function handleDelete({ mutate, id }: DeleteProps) {
   mutate(id);
 }
 
-export function handleCreateForm({
-  mutate,
-  data,
-}: {
+interface CreateProps {
   mutate: UseMutateFunction<Products, Error, Omit<Products, "id">, unknown>;
   data: Omit<Products, "id">;
-}) {
+}
+
+export function handleCreateForm({ mutate, data }: CreateProps) {
   mutate(data);
 }
 
-export function handleUpdateForm({
-  mutate,
-  data,
-  id,
-}: {
+interface UpdateProps {
   mutate: UseMutateFunction<
     {},
     Error,
@@ -35,6 +29,8 @@ export function handleUpdateForm({
   >;
   data: Omit<Products, "id">;
   id: string;
-}) {
+}
+
+export function handleUpdateForm({ mutate, data, id }: UpdateProps) {
   mutate({ body: data, id });
 }

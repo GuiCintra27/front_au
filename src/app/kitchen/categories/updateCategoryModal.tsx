@@ -10,15 +10,17 @@ import { Categories } from "@/models/menuModel";
 import { errorToast } from "@/components/UI/alerts";
 import { useUpdateCategory } from "@/hooks/api/categories";
 
+interface UpdateCategoryModalProps {
+  setOpenModal: Dispatch<SetStateAction<boolean>>;
+  id: string;
+  categoryData: Omit<Categories, "id">;
+}
+
 export function UpdateCategoryModal({
   setOpenModal,
   id,
   categoryData,
-}: {
-  setOpenModal: Dispatch<SetStateAction<boolean>>;
-  id: string;
-  categoryData: Omit<Categories, "id">;
-}) {
+}: UpdateCategoryModalProps) {
   const { mutate, error } = useUpdateCategory(setOpenModal);
 
   useEffect(() => {

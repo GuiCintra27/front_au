@@ -4,13 +4,14 @@ import { ProductData } from "@/models/menuModel";
 import { useGetMenuCategory } from "@/hooks/api/menu";
 import { Typograph } from "@/components/common/typograph";
 import { ProductCard } from "@/components/common/products/card";
-import { useEffect } from "react";
+
+interface CategoriesProps {
+  searchParams: { id: string; name: string };
+}
 
 function Categories({
   searchParams: { id, name },
-}: {
-  searchParams: { id: string; name: string };
-}) {
+}: CategoriesProps): JSX.Element {
   const { data, error } = useGetMenuCategory({ id: id as string });
 
   if (error) {
