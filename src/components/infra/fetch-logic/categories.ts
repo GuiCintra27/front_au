@@ -12,7 +12,6 @@ export function handleDelete({
 }) {
   try {
     mutate(id);
-    window.location.reload();
     successToast("Categoria excluída com sucesso");
   } catch (error) {}
 }
@@ -45,7 +44,6 @@ export function handleUpdateForm({
 }) {
   try {
     mutate({ body: data, id });
-    window.location.reload();
     successToast("Categoria criada com sucesso");
   } catch (error) {}
 }
