@@ -4,12 +4,12 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 
-import CreateCategory from "./createCategory";
 import Nav from "@/components/UI/kitchen/nav";
 import { Categories } from "@/models/menuModel";
-import CategoriesCards from "./categoriesCards";
 import { Typograph } from "@/components/common/typograph";
 import { fetchUrl } from "@/components/infra/fetch-logic/fetchUrl";
+import CreateCategory from "../../../components/UI/kitchen/categories/createCategory";
+import CategoriesCards from "../../../components/UI/kitchen/categories/categoriesCards";
 
 export default async function Category() {
   const queryClient = new QueryClient();
