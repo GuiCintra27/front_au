@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-import { Container, Name, Price } from "./styles";
-import { ProductData } from "@/models/menuModel";
 import { Typograph } from "../../typograph";
+import { ProductData } from "@/models/menuModel";
+import { Container, Name, Price } from "./styles";
 
 export function ProductCard({
   name,

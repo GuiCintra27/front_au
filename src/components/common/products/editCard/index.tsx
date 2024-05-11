@@ -7,7 +7,7 @@ import { UseMutateFunction } from "@tanstack/react-query";
 import { Container } from "./styles";
 import { Categories, ProductData } from "@/models/menuModel";
 import { handleDelete } from "@/components/infra/fetch-logic/products";
-import { UpdateProductModal } from "@/app/kitchen/products/updateProductModal";
+import { UpdateProductModal } from "@/components/UI/kitchen/products/updateProductModal";
 
 interface ProductEditCardProps {
   product: ProductData;

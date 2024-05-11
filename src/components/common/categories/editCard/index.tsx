@@ -7,7 +7,7 @@ import { UseMutateFunction } from "@tanstack/react-query";
 import { Container } from "./styles";
 import { Categories } from "@/models/menuModel";
 import { handleDelete } from "@/components/infra/fetch-logic/categories";
-import { UpdateCategoryModal } from "@/app/kitchen/categories/updateCategoryModal";
+import { UpdateCategoryModal } from "@/components/UI/kitchen/categories/updateCategoryModal";
 
 interface CategoryEditCardProps {
   category: Categories;
